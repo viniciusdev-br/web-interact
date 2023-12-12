@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { MdLogout } from 'react-icons/md';
 import './styles.css';
 
 import { socket } from '../../services/socket/socket';
@@ -11,10 +12,12 @@ export function Navbar() {
     const navigate = useNavigate();
 
     const handleLogout = function () {
-        const payload = {
-            username: user?.username,
-        }
-        socket.emit(SocketEvents.USER_DISCONNECT, payload);
+        setUserDataContext(null);
+        navigate('/login');
+        // const payload = {
+        //     username: user?.username,
+        // }
+        // socket.emit(SocketEvents.USER_DISCONNECT, payload);
     }
 
     useEffect(() => {
@@ -37,7 +40,10 @@ export function Navbar() {
         <nav className="navbar">
             <div className="container-navbar">
                 <h1 className='nav-user-name'>{user?.username}</h1>
-                <button className="nav-logout" onClick={handleLogout}>Desconectar</button>
+                <button className="nav-logout" onClick={handleLogout}>
+                    Sair
+                    <MdLogout size={20} color="#FFF" />
+                </button>
             </div>
         </nav>
     );

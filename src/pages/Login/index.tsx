@@ -67,7 +67,7 @@ export function Login() {
             <div className="container-login">
                 <img src="https://i.stack.imgur.com/ILTQq.png" alt=""></img>
                 <div className='container-form'>
-                    <h1 className='title-form'>Entre em sua conta</h1>
+                    <h1 className='title-form'>Entre em sua conta:</h1>
                     <div className='container-inputs'>
                         <input className='input-form' type="text" placeholder="Nome do usuário" onChange={handleUsername} />
                         <input className='input-form' type="number" min={1} placeholder="Limite de chamadas simultâneas" onChange={handleMaxCalls} />

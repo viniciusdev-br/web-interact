@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { MdChat } from 'react-icons/md';
 import { Navbar } from "../../components/Navbar";
 import './styles.css';
 
@@ -21,7 +22,7 @@ export function Home() {
             setServices(prevServices => [...prevServices, callReceived]);
         });
 
-        socket.on(SocketEvents.CALL_ENDED, (response: {callId: string}) => {
+        socket.on(SocketEvents.CALL_ENDED, (response: { callId: string }) => {
             console.log(response);
             setServices(prevServices => prevServices.filter(service => service.callId !== response.callId));
             setSelectedService(null);
@@ -47,15 +48,28 @@ export function Home() {
         socket.emit(SocketEvents.END_CALL, { callId: callId });
     }
 
+    const formatDate = function (dateStr: string) {
+        const date = new Date(dateStr);
+        const dia = String(date.getDate()).padStart(2, '0');
+        const mes = String(date.getMonth() + 1).padStart(2, '0'); // Lembre-se que os meses começam do zero, então é necessário adicionar 1
+        const ano = date.getFullYear();
+        const hora = String(date.getHours()).padStart(2, '0');
+        const minuto = String(date.getMinutes()).padStart(2, '0');
+        const segundo = String(date.getSeconds()).padStart(2, '0');
+
+        const formatedDate = `${dia}/${mes}/${ano} ${hora}:${minuto}:${segundo}`;
+        return formatedDate;
+    }
+
     const renderDetailsService = function () {
         if (selectedService) {
             return (
                 <>
                     <h2>Chamada selecionada:</h2>
                     <div className="details-service">
-                        <span>CallId: {selectedService?.callId}</span>
+                        <span>ID da chamada: {selectedService?.callId}</span>
                         <span>Mídia: {selectedService?.media}</span>
-                        <span>Data inicial: {String(selectedService?.startDate)}</span>
+                        <span>Data inicial: {formatDate(selectedService?.startDate)}</span>
                         <span>Serviço: {selectedService?.service}</span>
                         <span>Origem: {selectedService?.caller}</span>
                     </div>
@@ -73,6 +87,13 @@ export function Home() {
         return null;
     }
 
+    const selectedItem = function (callId: string) {
+        if (selectedService && selectedService.callId === callId) {
+            return 'selected-item';
+        }
+        return '';
+    }
+
     return (
         <>
             <Navbar />
@@ -82,9 +103,9 @@ export function Home() {
                         <h2>Atendimentos:</h2>
                         <ul className="list-services">
                             {services.map(service => (
-                                <li onClick={() => handleSelectService(service)} className="service-item" key={service.callId}>
+                                <li onClick={() => handleSelectService(service)} className={`service-item ${selectedItem(service.callId)}`} key={service.callId}>
                                     {renderLineFocus(service.callId)}
-                                    <img className="type-midia" src="public/chat_midia.svg" alt="" />
+                                    <MdChat size={30} color="#F08E2A" />
                                     <div className="preview-info">
                                         <h3 className="username-info">{service.caller}</h3>
                                         <p className="service-preview">{service.service}</p>
