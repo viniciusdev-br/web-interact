@@ -6,6 +6,7 @@ import './styles.css';
 import { socket } from '../../services/socket/socket';
 import { SocketEvents } from '../../services/socket/events';
 import useUserData from '../../context/User';
+import { ToastContainer, toast } from 'react-toastify';
 
 export function Login() {
     const [isLoading, setIsLoading] = useState(false)
@@ -25,7 +26,7 @@ export function Login() {
         socket.on(SocketEvents.USER_CONNECTION_ERROR, (response: any) => {
             console.log(response);
             setIsLoading(false);
-            alert('Não foi possível conectar: ' + response.error);
+            toast('Não foi possível conectar: ' + response.error);
         });
 
         return () => {
@@ -43,7 +44,7 @@ export function Login() {
 
     const handleLogin = function () {
         if (username === '' || maxCalls === 0) {
-            alert('Preencha todos os campos');
+            toast.warning('Preencha todos os campos!');
             return;
         }
         setIsLoading(true);
@@ -74,11 +75,19 @@ export function Login() {
                     </div>
                     <button onClick={handleLogin} className='submit-form'>
                         {!isLoading ? 'Conectar' :
-                        <HashLoader loading={true} color='#fff' size={20} />}
+                            <HashLoader loading={true} color='#fff' size={20} />}
                     </button>
                 </div>
             </div>
             <div className="background-line" />
+            <ToastContainer
+                position='bottom-right'
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                theme='dark'
+            />
         </div>
     );
 }

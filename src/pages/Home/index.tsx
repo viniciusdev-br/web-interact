@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MdChat } from 'react-icons/md';
 import { Navbar } from "../../components/Navbar";
+import 'react-toastify/dist/ReactToastify.css';
 import './styles.css';
 
 import { Call } from '../../types/call';
@@ -9,6 +10,7 @@ import { socket } from '../../services/socket/socket';
 import { SocketEvents } from '../../services/socket/events';
 import { Chronometer } from '../../components/Chronometer';
 import useUserData from '../../context/User';
+import { ToastContainer, toast } from 'react-toastify';
 
 export function Home() {
     const [services, setServices] = useState<Array<Call>>([]);
@@ -23,11 +25,13 @@ export function Home() {
 
         socket.on(SocketEvents.NEW_CALL, (callReceived: Call) => {
             console.log(callReceived);
+            toast(`Nova chamada recebida de ${callReceived.caller}.`);
             if (services.find(service => service.callId === callReceived.callId)) {
                 console.log(`Chamada ${callReceived.callId} já existe na lista de chamadas`);
                 return;
             }
             socket.emit(SocketEvents.NEW_CALL_ANSWERED, { callId: callReceived.callId });
+
             setServices(prevServices => [...prevServices, callReceived]);
         });
 
@@ -60,7 +64,7 @@ export function Home() {
     const formatDate = function (dateStr: string) {
         const date = new Date(dateStr);
         const day = String(date.getDate()).padStart(2, '0');
-        const month = String(date.getMonth() + 1).padStart(2, '0'); 
+        const month = String(date.getMonth() + 1).padStart(2, '0');
         const year = date.getFullYear();
         const hour = String(date.getHours()).padStart(2, '0');
         const minute = String(date.getMinutes()).padStart(2, '0');
@@ -129,6 +133,14 @@ export function Home() {
                         {renderDetailsService()}
                     </div>
                 </div>
+                <ToastContainer 
+                    position='bottom-right'
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick={false}
+                    theme='dark'
+                />  
             </div>
         </>
     );
