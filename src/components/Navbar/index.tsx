@@ -21,12 +21,14 @@ export function Navbar() {
         // socket.emit(SocketEvents.USER_DISCONNECT, payload);
     }
 
+    const cbUserDisconnected = function (response: ResponseUserName) {
+        console.log('Usuário desconectado: ' + response.username);
+        setUserDataContext(null);
+        navigate('/login');
+    }
+
     useEffect(() => {
-        socket.on(SocketEvents.USER_DISCONNECTED, (response: ResponseUserName) => {
-            console.log('Usuário desconectado: ' + response.username);
-            setUserDataContext(null);
-            navigate('/login');
-        });
+        socket.on(SocketEvents.USER_DISCONNECTED, cbUserDisconnected);
         return () => {
             socket.off(SocketEvents.USER_DISCONNECTED);
         }
