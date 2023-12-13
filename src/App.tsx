@@ -1,6 +1,5 @@
 import { Router } from './routes'
 import { UserProvider } from './context/User';
-import './App.css';
 
 function App() {
     return (

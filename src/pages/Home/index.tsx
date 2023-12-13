@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { MdChat } from 'react-icons/md';
 import { Navbar } from "../../components/Navbar";
 import 'react-toastify/dist/ReactToastify.css';
@@ -17,6 +18,7 @@ export function Home() {
     const [selectedService, setSelectedService] = useState<Call | null>(null);
     const navigate = useNavigate();
     const { user } = useUserData();
+    const { t } = useTranslation();
 
     useEffect(() => {
         if (!user) {
@@ -25,7 +27,7 @@ export function Home() {
 
         socket.on(SocketEvents.NEW_CALL, (callReceived: Call) => {
             console.log(callReceived);
-            toast(`Nova chamada recebida de ${callReceived.caller}.`);
+            toast(t('home.toast.newCall', {caller: callReceived.caller}));
             if (services.find(service => service.callId === callReceived.callId)) {
                 console.log(`Chamada ${callReceived.callId} já existe na lista de chamadas`);
                 return;
@@ -43,7 +45,7 @@ export function Home() {
 
         socket.on(SocketEvents.END_CALL_ERROR, (response: ResponseEndCallError) => {
             console.log(response);
-            alert('Não foi possível finalizar a chamada: ' + response.error);
+            toast.warning(t('home.toast.endCallError', {error: response.error}));
         });
 
         return () => {
@@ -78,19 +80,19 @@ export function Home() {
         if (selectedService) {
             return (
                 <>
-                    <h2>Chamada selecionada:</h2>
+                    <h2>{t('home.detailService.title')}</h2>
                     <div className="details-service">
-                        <span>ID da chamada: {selectedService?.callId}</span>
-                        <span>Mídia: {selectedService?.media}</span>
-                        <span>Data inicial: {formatDate(selectedService?.startDate)}</span>
-                        <span>Serviço: {selectedService?.service}</span>
-                        <span>Origem: {selectedService?.caller}</span>
+                        <span>{t('home.detailService.idCall')} {selectedService?.callId}</span>
+                        <span>{t('home.detailService.midia')} {selectedService?.media}</span>
+                        <span>{t('home.detailService.startDate')} {formatDate(selectedService?.startDate)}</span>
+                        <span>{t('home.detailService.service')} {selectedService?.service}</span>
+                        <span>{t('home.detailService.caller')} {selectedService?.caller}</span>
                     </div>
-                    <button onClick={() => handleFinishCall(selectedService.callId)} className="btn-finish-call">Finalizar</button>
+                    <button onClick={() => handleFinishCall(selectedService.callId)} className="btn-finish-call">{t('home.detailService.btnEndCall')}</button>
                 </>
             )
         }
-        return (<h2>Selecione uma chamada</h2>)
+        return (<h2>{t('home.detailService.titleUnselected')}a</h2>)
     }
 
     const renderLineFocus = function (callId: string) {
@@ -113,7 +115,7 @@ export function Home() {
             <div className="background-home">
                 <div className="container-home">
                     <div className="card-services">
-                        <h2>Atendimentos:</h2>
+                        <h2>{t('home.listServices.title')}</h2>
                         <ul className="list-services">
                             {services.map(service => (
                                 <li onClick={() => handleSelectService(service)} className={`service-item ${selectedItem(service.callId)}`} key={service.callId}>

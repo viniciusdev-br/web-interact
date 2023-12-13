@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 import HashLoader from 'react-spinners/HashLoader';
 
 import './styles.css';
 import { socket } from '../../services/socket/socket';
 import { SocketEvents } from '../../services/socket/events';
 import useUserData, { UserData } from '../../context/User';
-import { ToastContainer, toast } from 'react-toastify';
 import { ErrorConnectionUser } from '../../types/call';
 
 export function Login() {
@@ -15,6 +16,7 @@ export function Login() {
     const [maxCalls, setMaxCalls] = useState<number>(0);
 
     const { setUserDataContext, user } = useUserData();
+    const { t } = useTranslation();
 
     const navigate = useNavigate();
 
@@ -69,13 +71,13 @@ export function Login() {
             <div className="container-login">
                 <img src="https://i.stack.imgur.com/ILTQq.png" alt=""></img>
                 <div className='container-form'>
-                    <h1 className='title-form'>Entre em sua conta:</h1>
+                    <h1 className='title-form'>{t('login.titleForm')}</h1>
                     <div className='container-inputs'>
-                        <input className='input-form' type="text" placeholder="Nome do usuário" onChange={handleUsername} />
-                        <input className='input-form' type="number" min={1} placeholder="Limite de chamadas simultâneas" onChange={handleMaxCalls} />
+                        <input className='input-form' type="text" placeholder={t('login.placeholderUserName')} onChange={handleUsername} />
+                        <input className='input-form' type="number" min={1} placeholder={t('login.placeholderMaxCalls')} onChange={handleMaxCalls} />
                     </div>
                     <button onClick={handleLogin} className='submit-form'>
-                        {!isLoading ? 'Conectar' :
+                        {!isLoading ? t('login.btnConect') :
                             <HashLoader loading={true} color='#fff' size={20} />}
                     </button>
                 </div>
