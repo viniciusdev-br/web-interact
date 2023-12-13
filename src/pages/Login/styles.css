@@ -1,5 +1,5 @@
 .background-login {
-	background-color: #D1D5D7;
+	background-color: var(--gray-100);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -7,7 +7,7 @@
 }
 
 .container-login {
-    background-color: #1A3140;
+    background-color: var(--gray-700);
     width: 90%;
     height: 80%;
     display: flex;
@@ -23,14 +23,14 @@
 }
 
 .background-line {
-	background-color: #505E68;
+	background-color: var(--gray-500);
     height: 25rem;
     width: 100vw;
     position: absolute;
 }
 
 .container-form {
-	background-color: #364F5E;
+	background-color: var(--gray-600);
     padding: 4rem 2rem;
     border-radius: 10px;
     display: flex;
@@ -40,7 +40,7 @@
 }
 
 .title-form {
-    color: #FFF;
+    color: var(--white);
     font-family: sans-serif;
     font-weight: 400;
     font-size: 18px;
@@ -53,22 +53,22 @@
 }
 
 .input-form {
-    background-color: #364F5E;
-    border: #D1D5D7 2px solid;
+    background-color: var(--gray-600);
+    border: var(--gray-100) 2px solid;
     border-radius: 3px;
     padding: 0.7rem;
     font-size: 14px;
-    color: #FFF;
+    color: var(--white);
 }
 
 ::placeholder {
-	color: #FFF;
+	color: var(--white);
 	opacity: 0.8;
 }
 
 .submit-form {
-    background-color: #19303E;
-    color: #FFF;
+    background-color: var(--gray-700);
+    color: var(--white);
     font-weight: bold;
     padding: 0.5rem 0;
     border: none;
@@ -80,5 +80,5 @@
 }
 
 .submit-form:hover {
-    filter: drop-shadow(0.2rem 0.3rem 0.4rem #19303E );
+    filter: drop-shadow(0.2rem 0.3rem 0.4rem var(--gray-700) );
 }

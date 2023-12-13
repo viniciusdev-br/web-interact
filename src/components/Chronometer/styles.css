@@ -1,5 +1,5 @@
 .time-service {
-    color: #7F83A2;
+    color: var(--gray-300);
     position: absolute;
     right: 0.8rem;
 }
