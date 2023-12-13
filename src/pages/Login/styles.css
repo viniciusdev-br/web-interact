@@ -9,6 +9,7 @@
 .container-login {
     background-color: var(--gray-700);
     width: 90%;
+    max-width: 79rem;
     height: 80%;
     display: flex;
     justify-content: space-around;

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { MdChat } from 'react-icons/md';
 import { Navbar } from "../../components/Navbar";
 import './styles.css';
@@ -7,12 +8,19 @@ import { Call } from '../../types/call';
 import { socket } from '../../services/socket/socket';
 import { SocketEvents } from '../../services/socket/events';
 import { Chronometer } from '../../components/Chronometer';
+import useUserData from '../../context/User';
 
 export function Home() {
     const [services, setServices] = useState<Array<Call>>([]);
     const [selectedService, setSelectedService] = useState<Call | null>(null);
+    const navigate = useNavigate();
+    const { user } = useUserData();
 
     useEffect(() => {
+        if (!user) {
+            navigate('/login');
+        }
+
         socket.on(SocketEvents.NEW_CALL, (callReceived: Call) => {
             console.log(callReceived);
             if (services.find(service => service.callId === callReceived.callId)) {
@@ -51,14 +59,14 @@ export function Home() {
 
     const formatDate = function (dateStr: string) {
         const date = new Date(dateStr);
-        const dia = String(date.getDate()).padStart(2, '0');
-        const mes = String(date.getMonth() + 1).padStart(2, '0'); // Lembre-se que os meses começam do zero, então é necessário adicionar 1
-        const ano = date.getFullYear();
-        const hora = String(date.getHours()).padStart(2, '0');
-        const minuto = String(date.getMinutes()).padStart(2, '0');
-        const segundo = String(date.getSeconds()).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0'); 
+        const year = date.getFullYear();
+        const hour = String(date.getHours()).padStart(2, '0');
+        const minute = String(date.getMinutes()).padStart(2, '0');
+        const second = String(date.getSeconds()).padStart(2, '0');
 
-        const formatedDate = `${dia}/${mes}/${ano} ${hora}:${minuto}:${segundo}`;
+        const formatedDate = `${day}/${month}/${year} ${hour}:${minute}:${second}`;
         return formatedDate;
     }
 
