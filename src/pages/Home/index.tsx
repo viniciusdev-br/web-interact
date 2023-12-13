@@ -6,6 +6,7 @@ import './styles.css';
 import { Call } from '../../types/call';
 import { socket } from '../../services/socket/socket';
 import { SocketEvents } from '../../services/socket/events';
+import { Chronometer } from '../../components/Chronometer';
 
 export function Home() {
     const [services, setServices] = useState<Array<Call>>([]);
@@ -110,7 +111,7 @@ export function Home() {
                                         <h3 className="username-info">{service.caller}</h3>
                                         <p className="service-preview">{service.service}</p>
                                     </div>
-                                    <span className="time-service">{'13:48' || String(service.startDate)}</span>
+                                    <Chronometer />
                                 </li>
                             ))}
                         </ul>
