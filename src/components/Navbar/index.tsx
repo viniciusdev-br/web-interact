@@ -6,6 +6,7 @@ import './styles.css';
 import { socket } from '../../services/socket/socket';
 import { SocketEvents } from '../../services/socket/events';
 import useUserData from '../../context/User';
+import { ResponseUserName } from '../../types/call';
 
 export function Navbar() {
     const {user, setUserDataContext} = useUserData();
@@ -21,18 +22,13 @@ export function Navbar() {
     }
 
     useEffect(() => {
-        socket.on(SocketEvents.USER_DISCONNECTED, (response: any) => {
-            console.log(response);
+        socket.on(SocketEvents.USER_DISCONNECTED, (response: ResponseUserName) => {
+            console.log('Usuário desconectado: ' + response.username);
             setUserDataContext(null);
             navigate('/login');
         });
-        socket.on(SocketEvents.USER_CONNECTION_ERROR, (response: any) => {
-            console.log(response);
-            alert('Não foi possível conectar: ' + response.error);
-        });
         return () => {
             socket.off(SocketEvents.USER_DISCONNECTED);
-            socket.off(SocketEvents.USER_CONNECTION_ERROR);
         }
     }, []);
 

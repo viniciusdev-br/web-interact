@@ -5,7 +5,7 @@ import { Navbar } from "../../components/Navbar";
 import 'react-toastify/dist/ReactToastify.css';
 import './styles.css';
 
-import { Call } from '../../types/call';
+import { Call, ResponseEndCallError } from '../../types/call';
 import { socket } from '../../services/socket/socket';
 import { SocketEvents } from '../../services/socket/events';
 import { Chronometer } from '../../components/Chronometer';
@@ -41,7 +41,7 @@ export function Home() {
             setSelectedService(null);
         });
 
-        socket.on(SocketEvents.END_CALL_ERROR, (response: any) => {
+        socket.on(SocketEvents.END_CALL_ERROR, (response: ResponseEndCallError) => {
             console.log(response);
             alert('Não foi possível finalizar a chamada: ' + response.error);
         });

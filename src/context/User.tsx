@@ -4,7 +4,7 @@ interface Props {
     children: ReactNode;
 }
 
-interface UserData {
+export interface UserData {
     username: string;
     maxCalls: number;
 }
