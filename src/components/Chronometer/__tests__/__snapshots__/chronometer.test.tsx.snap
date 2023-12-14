@@ -1,0 +1,17 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Chronometer > Renderiza componente de Chronometro 1`] = `
+<span
+  className="time-service"
+>
+  00:00
+</span>
+`;
+
+exports[`Chronometer > Renderiza componente de Chronometro iniciando com tempo 00:00 1`] = `
+<span
+  className="time-service"
+>
+  00:00
+</span>
+`;
