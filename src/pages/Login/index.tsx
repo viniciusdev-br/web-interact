@@ -70,7 +70,7 @@ export function Login() {
     return (
         <div className="background-login">
             <div className="container-login">
-                <img src="https://i.stack.imgur.com/ILTQq.png" alt=""></img>
+                <img className='image-form' src="https://i.stack.imgur.com/ILTQq.png" alt="Tux sentado"></img>
                 <div className='container-form'>
                     <h1 className='title-form'>{t('login.titleForm')}</h1>
                     <div className='container-inputs'>

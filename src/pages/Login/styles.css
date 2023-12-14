@@ -69,3 +69,16 @@
 .submit-form:hover {
     filter: drop-shadow(0.2rem 0.3rem 0.4rem var(--gray-700) );
 }
+
+@media screen and (max-width: 800px) {
+    .image-form {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .container-form {
+        min-width: auto;
+        width: 90%;
+    }
+}
