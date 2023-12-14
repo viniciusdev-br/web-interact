@@ -9,6 +9,7 @@ import { socket } from '../../services/socket/socket';
 import { SocketEvents } from '../../services/socket/events';
 import useUserData, { UserData } from '../../context/User';
 import { ErrorConnectionUser } from '../../types/call';
+import { InputForm } from '../../components/InputForm';
 
 export function Login() {
     const [isLoading, setIsLoading] = useState(false)
@@ -46,8 +47,8 @@ export function Login() {
     }, [user])
 
     const handleLogin = function () {
-        if (username === '' || maxCalls === 0) {
-            toast.warning('Preencha todos os campos!');
+        if (username === '' || maxCalls <=0) {
+            toast.warning('Preencha todos os campos corretamente.');
             return;
         }
         setIsLoading(true);
@@ -73,8 +74,8 @@ export function Login() {
                 <div className='container-form'>
                     <h1 className='title-form'>{t('login.titleForm')}</h1>
                     <div className='container-inputs'>
-                        <input className='input-form' type="text" placeholder={t('login.placeholderUserName')} onChange={handleUsername} />
-                        <input className='input-form' type="number" min={1} placeholder={t('login.placeholderMaxCalls')} onChange={handleMaxCalls} />
+                        <InputForm type="text" placeholder={t('login.placeholderUserName')} onChange={handleUsername} />
+                        <InputForm type="number" min={1} placeholder={t('login.placeholderMaxCalls')} onChange={handleMaxCalls} />
                     </div>
                     <button onClick={handleLogin} className='submit-form'>
                         {!isLoading ? t('login.btnConect') :

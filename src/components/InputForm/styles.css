@@ -1,0 +1,13 @@
+.input-form {
+    background-color: var(--gray-600);
+    border: var(--gray-100) 2px solid;
+    border-radius: 3px;
+    padding: 0.7rem;
+    font-size: 14px;
+    color: var(--white);
+}
+
+::placeholder {
+	color: var(--white);
+	opacity: 0.8;
+}

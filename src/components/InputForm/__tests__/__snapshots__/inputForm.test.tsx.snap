@@ -1,0 +1,8 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`InputForm > Snapshot default do componente de input de formulário 1`] = `
+<input
+  className="input-form"
+  placeholder="Nome do usuário"
+/>
+`;
