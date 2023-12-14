@@ -7,7 +7,7 @@ import { toJson } from '../../../../tests/utils';
 describe('InputForm', () => {
     it('Snapshot default do componente de input de formulário', () => {
         const component = renderer.create(<InputForm placeholder='Nome do usuário'/>);
-        let tree = toJson(component);
+        const tree = toJson(component);
         expect(tree).toMatchSnapshot();
     });
 });
