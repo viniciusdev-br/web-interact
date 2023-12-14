@@ -17,6 +17,7 @@ export function Navbar() {
     const handleLogout = function () {
         setUserDataContext(null);
         navigate('/login');
+        // TODO: Verificar desconexão socket não funcional
         // const payload = {
         //     username: user?.username,
         // }

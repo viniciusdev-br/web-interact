@@ -2,13 +2,7 @@ import { render, screen } from '@testing-library/react';
 import renderer from 'react-test-renderer';
 import { describe, expect, it } from "vitest";
 import { Chronometer } from '..';
-
-function toJson(component: renderer.ReactTestRenderer) {
-    const result = component.toJSON()
-    expect(result).toBeDefined()
-    expect(result).not.toBeInstanceOf(Array)
-    return result as renderer.ReactTestRendererJSON
-}
+import { toJson } from '../../../../tests/utils';
 
 describe('Chronometer', () => {
     it('Renderiza componente de Chronometro', () => {
